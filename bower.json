@@ -1,0 +1,22 @@
+{
+  "name": "Database Analyzer",
+  "version": "0.0.0",
+  "authors": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.3.14",
+    "angular-route": "~1.2.18",
+    "angular-mocks": "~1.2.18",
+    "bootstrap": "~3.3.2",
+    "angular-ui-router": "~0.2.13",
+    "ngFx": "~1.0.6"
+  },
+  "resolutions": {
+    "angular": "1.3.14"
+  }
+}
