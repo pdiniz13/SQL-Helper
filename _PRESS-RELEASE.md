@@ -17,28 +17,36 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Database Normalization
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > This is an application that shows you how to normalize your SQL Tables
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > You provide the application with your current tables columns and dependencies the application will tell you how to
+    better normalize the table. The application will provide you with information as to where foreign keys should go
+    and when helper tables should be created.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Less and less frontend developers today are properly introduced to SQL which leaves them without a clear
+    understanding on how to properly structure their data before sending it to a database. This application simplifies
+    the process of database normalization and tries to demonstrate to the developer what his data will look like when
+    normalized.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > This application simplifies the process of database normalization and tries to demonstrate to the developer what his
+  data will look like when normalized.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > In order to get started all you need to do is open up the application and provide it with the current information
+  on your data.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  >
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > This application is meant to help clarify database structures and normalization if you are interested in working with
+   databases I would recommend reading the Murach's SQL Server 2012 for Developers and Murach's MySQL (2nd Edition)
