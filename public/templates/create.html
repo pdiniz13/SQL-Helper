@@ -1,4 +1,4 @@
-<div class="container">
+<div>
     <h2>Data Input</h2>
 
     <form name="addTable" class="form-horizontal">
@@ -18,6 +18,7 @@
                 <input type="text" id="columns" ng-model="column.name" name="" placeholder="Enter a Column Name">
             </div>
         </div>
+        <br/>
         <label class="control-label" for="contains">Does this table contain any of these tables?</label>
         <span class="nullable">
         <div>
@@ -36,12 +37,15 @@
             </select>
 
         </div>
-                </span>
+                    </span>
         <br/>
         <button ng-click="addNewCol()" class="controls">Add Another Column</button>
         <button ng-click="removeLastCol()" class="controls">Remove Last Column</button>
+        <br/>
         <button class="controls" ng-click="addNewTable()">Add Table</button>
+
     </form>
+    <br/>
     <br/>
 
     <div name="CollectionOfTables" class="tableCollection" ng-repeat="table in tables">

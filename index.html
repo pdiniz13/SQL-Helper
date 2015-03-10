@@ -2,17 +2,21 @@
 <html ng-app='sql'>
 <head>
     <meta charset="utf-8"/>
-    <title>Shortly</title>
+    <title>Sql Helpers</title>
+    <link rel="shortcut icon" href="./public/dragon.jpg">
     <link rel="stylesheet" type="text/css" href="public/styles/styles.css"/>
     <link rel="stylesheet" type="text/css" href="public/components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="public/components/bootstrap/dist/css/bootstrap-theme.min.css"/>
 
 </head>
 <body class="container">
-<h1>Sql Helpers</h1>
-
-<!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-<div ui-view class="container">
+<h1 class="col-md-offset-5">Sql Helpers</h1>
+<br/>
+<br/>
+<p class="col-md-5 col-md-offset-4">This application assumes that you have your data in it's first normalized form.
+    If you dont know how to do this please read the following article:
+    <a href="http://www.tutorialspoint.com/sql/first-normal-form.htm">First Normal Form </a> </p>
+<div ui-view class="col-md-5 col-md-offset-5">
 </div>
 
 <script src="public/components/angular/angular.min.js"></script>
