@@ -1,0 +1,49 @@
+<div class="container">
+    <h2>Data Input</h2>
+
+    <form name="addTable" class="form-horizontal">
+        <div class="control-group">
+            <label for="TableName" class="control-label">Table Name:</label>
+
+            <div class="controls">
+                <input id="TableName" type="text" name="TableName" ng-model="name" required=""
+                       placeholder="Table Name"/>
+            </div>
+        </div>
+        <br/>
+        <label class="control-label" for="columns">Columns:</label>
+
+        <div ng-repeat="column in columns">
+            <div class="control-group">
+                <input type="text" id="columns" ng-model="column.name" name="" placeholder="Enter a Column Name">
+            </div>
+        </div>
+        <label class="control-label" for="contains">Do any of these tables contain this table?</label>
+        <div>
+            <select id="contains" ng-options="table as table.name for table in tables" ng-model="tableName" ng-change="updateContains()">
+            </select>
+        </div>
+        <label class="control-label" for="depends">Does this table contain any of these tables?</label>
+        <div>
+            <select id="depends" ng-options="table.name for table in tables" ng-model="tableName1" ng-change="updateDependency()">
+            </select>
+        </div>
+        <br/>
+        <button ng-click="addNewCol()" class="controls">Add Another Column</button>
+        <button ng-click="removeLastCol()" class="controls">Remove Last Column</button>
+        <button class="controls" ng-click="addNewTable()">Add Table</button>
+    </form>
+    <br/>
+
+    <div name="CollectionOfTables" class="tableCollection" ng-repeat="table in tables">
+        <div class="col-md-4">
+            <table class="table-bordered">
+                <th>{{table.name}}</th>
+                <tr ng-repeat="newColumn in table.columns">
+                    <td>{{newColumn.name}}</td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+    </div>
+</div>

@@ -2,17 +2,15 @@
  * Created by ppp on 3/9/2015.
  */
 angular.module('sql', [
-  'ngRoute',
   'sql.controller',
-  'ui.router',
-  'ngFx'
+  'ui.router'
 ])
-  .config(function($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/index");
+  .config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/create");
     $stateProvider
-      .state('index', {
-        templateUrl: '../templates/index.html',
+      .state('create', {
+        templateUrl: 'templates/create.html',
         controller: 'SqlController',
-        url: '/index'
+        url: '/create'
       })
   });
