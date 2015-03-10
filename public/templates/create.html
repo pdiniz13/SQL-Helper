@@ -19,15 +19,24 @@
             </div>
         </div>
         <label class="control-label" for="contains">Does this table contain any of these tables?</label>
+        <span class="nullable">
         <div>
-            <select id="contains" ng-options="table as table.name for table in tables" ng-model="tableName" ng-change="updateContains()">
+            <select id="contains" ng-options="table as table.name for table in tables" ng-model="tableName"
+                    ng-change="updateContains()">
+                <option value="">-- choose table --</option>
             </select>
         </div>
+            </span>
         <label class="control-label" for="depends">Do any of these tables contain this table?</label>
+                <span class="nullable">
         <div>
-            <select id="depends" ng-options="table.name for table in tables" ng-model="tableName1" ng-change="updateDependency()">
+            <select id="depends" ng-options="table.name for table in tables" ng-model="tableName1"
+                    ng-change="updateDependency()">
+                <option value="">-- choose table --</option>
             </select>
+
         </div>
+                </span>
         <br/>
         <button ng-click="addNewCol()" class="controls">Add Another Column</button>
         <button ng-click="removeLastCol()" class="controls">Remove Last Column</button>
