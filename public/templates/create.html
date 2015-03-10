@@ -18,12 +18,12 @@
                 <input type="text" id="columns" ng-model="column.name" name="" placeholder="Enter a Column Name">
             </div>
         </div>
-        <label class="control-label" for="contains">Do any of these tables contain this table?</label>
+        <label class="control-label" for="contains">Does this table contain any of these tables?</label>
         <div>
             <select id="contains" ng-options="table as table.name for table in tables" ng-model="tableName" ng-change="updateContains()">
             </select>
         </div>
-        <label class="control-label" for="depends">Does this table contain any of these tables?</label>
+        <label class="control-label" for="depends">Do any of these tables contain this table?</label>
         <div>
             <select id="depends" ng-options="table.name for table in tables" ng-model="tableName1" ng-change="updateDependency()">
             </select>
