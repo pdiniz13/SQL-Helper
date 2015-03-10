@@ -9,7 +9,7 @@ angular.module('sql', [
     $urlRouterProvider.otherwise("/create");
     $stateProvider
       .state('create', {
-        templateUrl: 'templates/create.html',
+        templateUrl: './templates/create.html',
         controller: 'SqlController',
         url: '/create'
       })
