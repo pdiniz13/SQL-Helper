@@ -9,6 +9,7 @@ angular.module('sql.controller', [])
     $scope.tables = Tables.tables;
     $scope.contains = null;
     $scope.depends = null;
+    $scope.sqlString = '';
     $scope.addNewCol = function() {
       var newItemNo = $scope.columns.length + 1;
       $scope.columns.push({'id': 'col' + newItemNo});
@@ -33,13 +34,28 @@ angular.module('sql.controller', [])
     $scope.updateContains = function() {
       $scope.contains = $scope.tableName.name;
     };
+    $scope.createSql = function(){
+      $scope.sqlString = Tables.createSql();
+    }
   }])
   .factory('Tables', function() {
     var tables = [];
+    var sqlString = '';
     var addNewTable = function(name, columns, contains, depends) {
+      sqlString += "CREATE TABLE " + "`" + name + "` (\n" +
+      "`" + name + "Id`" + " INT NOT NULL AUTO_INCREMENT,\n";
+      for (var y = 0, newCount = columns.length; y < newCount; y++) {
+        sqlString += "`" + columns[y].name + "`" + " VARCHAR(45) NULL, "
+      }
       columns.push({name: name + "Id"});
       if (contains === null && depends !== null) {
-        columns.push({name: depends + 'Id' + '(FK)'})
+        sqlString +=  "`"+ depends +"Id` INT NULL,\n";
+        sqlString += "PRIMARY KEY (`" + name + "Id`), ";
+        sqlString += "INDEX `" + depends + "Id_idx` (`" + depends + "Id` ASC),\n";
+        sqlString += "CONSTRAINT `" + depends + "Id`\n";
+        sqlString += "FOREIGN KEY (`" + depends + "Id`)\n";
+        sqlString += "REFERENCES `" + depends + "` (`" + depends + "Id`)\n";
+        columns.push({name: depends + 'Id' + '(FK) '});
       }
       else if (contains !== null && depends === null) {
         for (var x = 0, count = tables.length; x < count; x++) {
@@ -56,12 +72,20 @@ angular.module('sql.controller', [])
           })
         }
       }
-
+      else{
+        sqlString += "PRIMARY KEY (`" + name + "Id`)";
+      }
+      sqlString += "); ";
       tables.push({name: name, columns: columns});
+    };
+    var createSql = function(){
+      return sqlString;
     };
 
     return {
       tables: tables,
+      sqlString:sqlString,
+      createSql: createSql,
       addNewTable: addNewTable
     }
   });

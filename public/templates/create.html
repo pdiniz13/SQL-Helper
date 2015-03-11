@@ -46,10 +46,11 @@
 
     </form>
     <br/>
+    <button ng-click="createSql()">Generate MySql</button>
     <br/>
 
     <div name="CollectionOfTables" class="tableCollection" ng-repeat="table in tables">
-        <div class="col-md-4">
+        <div >
             <table class="table-bordered">
                 <th>{{table.name}}</th>
                 <tr ng-repeat="newColumn in table.columns">
@@ -59,4 +60,5 @@
             <br/>
         </div>
     </div>
+    <div class="col-md-12">{{sqlString}}</div>
 </div>
