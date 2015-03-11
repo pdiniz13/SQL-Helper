@@ -64,17 +64,32 @@ angular.module('sql.controller', [])
           }
         }
       }
-      else if (contains !== null && depends !== null) {
+      else{
+        sqlString += "PRIMARY KEY (`" + name + "Id`)";
+      }
+      if (contains !== null && depends !== null) {
         if (contains === depends) {
+          sqlString += ");";
+          sqlString += "CREATE TABLE `" + contains + name + "` ( ";
+          sqlString += "`" + contains + name + "Id` INT NOT NULL AUTO_INCREMENT, ";
+          sqlString += "`" + contains + "Id` INT NULL, ";
+          sqlString += "`" + name + "Id` INT NULL, ";
+          sqlString += "PRIMARY KEY (`" + contains+name + "Id`), ";
+          sqlString += "INDEX `" + contains + "Id_idx` (`" + contains + "Id` ASC), ";
+          sqlString += "INDEX `" + name + "Id_idx` (`" + name + "Id` ASC), ";
+          sqlString += "CONSTRAINT `" + contains + "Id` ";
+          sqlString += "FOREIGN KEY (`" + contains + "Id`) ";
+          sqlString += "REFERENCES `"+ contains + "` (`"+ contains+ "Id`), ";
+          sqlString += "CONSTRAINT `" + name + "Id` ";
+          sqlString += "FOREIGN KEY (`" + name + "Id`) ";
+          sqlString += "REFERENCES `"+ name + "` (`"+ name + "Id`)";
           tables.push({
             name: contains + name,
             columns: [{name: contains + name + "Id"}, {name: contains + "Id" + '(FK)'}, {name: name + "Id" + '(FK)'}]
           })
         }
       }
-      else{
-        sqlString += "PRIMARY KEY (`" + name + "Id`)";
-      }
+
       sqlString += "); ";
       tables.push({name: name, columns: columns});
     };
