@@ -1,6 +1,7 @@
 /**
  * Created by ppp on 3/9/2015.
  */
+
 angular.module('sql.controller', [])
 
   .controller('SqlController', ['$scope', 'Tables', function($scope, Tables) {
@@ -34,11 +35,17 @@ angular.module('sql.controller', [])
     $scope.updateContains = function() {
       $scope.contains = $scope.tableName.name;
     };
-    $scope.createSql = function(){
+    $scope.createSql = function() {
       $scope.sqlString = Tables.createSql();
     }
   }])
   .factory('Tables', function() {
+    String.prototype.insert = function (index, string) {
+      if (index > 0)
+        return this.substring(0, index) + string + this.substring(index, this.length);
+      else
+        return string + this;
+    };
     var tables = [];
     var sqlString = '';
     var addNewTable = function(name, columns, contains, depends) {
@@ -49,7 +56,7 @@ angular.module('sql.controller', [])
       }
       columns.push({name: name + "Id"});
       if (contains === null && depends !== null) {
-        sqlString +=  "`"+ depends +"Id` INT NULL,\n";
+        sqlString += "`" + depends + "Id` INT NULL,\n";
         sqlString += "PRIMARY KEY (`" + name + "Id`), ";
         sqlString += "INDEX `" + depends + "Id_idx` (`" + depends + "Id` ASC),\n";
         sqlString += "CONSTRAINT `" + depends + "Id`\n";
@@ -59,12 +66,19 @@ angular.module('sql.controller', [])
       }
       else if (contains !== null && depends === null) {
         for (var x = 0, count = tables.length; x < count; x++) {
-          if (depends === tables[x].name) {
-            tables[x].columns.push({name: contains + "Id" + '(FK)'});
+          if (contains === tables[x].name) {
+            var index = sqlString.indexOf("PRIMARY KEY (`" + contains + "Id`)") - 1;
+            var newString = " `" + name + "Id` INT NULL,\n";
+            newString += "INDEX `" + name + "Id_idx` (`" + name + "Id` ASC),\n";
+            newString += "CONSTRAINT `" + name + "Id`\n";
+            newString += "FOREIGN KEY (`" + name + "Id`)\n";
+            newString += "REFERENCES `" + name + "` (`" + name + "Id`),\n";
+            sqlString = sqlString.insert(index, newString) + "PRIMARY KEY (`" + name + "Id`)";
+            tables[x].columns.push({name: name + "Id" + '(FK)'});
           }
         }
       }
-      else{
+      else {
         sqlString += "PRIMARY KEY (`" + name + "Id`)";
       }
       if (contains !== null && depends !== null) {
@@ -74,15 +88,15 @@ angular.module('sql.controller', [])
           sqlString += "`" + contains + name + "Id` INT NOT NULL AUTO_INCREMENT, ";
           sqlString += "`" + contains + "Id` INT NULL, ";
           sqlString += "`" + name + "Id` INT NULL, ";
-          sqlString += "PRIMARY KEY (`" + contains+name + "Id`), ";
+          sqlString += "PRIMARY KEY (`" + contains + name + "Id`), ";
           sqlString += "INDEX `" + contains + "Id_idx` (`" + contains + "Id` ASC), ";
           sqlString += "INDEX `" + name + "Id_idx` (`" + name + "Id` ASC), ";
           sqlString += "CONSTRAINT `" + contains + "Id` ";
           sqlString += "FOREIGN KEY (`" + contains + "Id`) ";
-          sqlString += "REFERENCES `"+ contains + "` (`"+ contains+ "Id`), ";
+          sqlString += "REFERENCES `" + contains + "` (`" + contains + "Id`), ";
           sqlString += "CONSTRAINT `" + name + "Id` ";
           sqlString += "FOREIGN KEY (`" + name + "Id`) ";
-          sqlString += "REFERENCES `"+ name + "` (`"+ name + "Id`)";
+          sqlString += "REFERENCES `" + name + "` (`" + name + "Id`)";
           tables.push({
             name: contains + name,
             columns: [{name: contains + name + "Id"}, {name: contains + "Id" + '(FK)'}, {name: name + "Id" + '(FK)'}]
@@ -93,13 +107,13 @@ angular.module('sql.controller', [])
       sqlString += "); ";
       tables.push({name: name, columns: columns});
     };
-    var createSql = function(){
+    var createSql = function() {
       return sqlString;
     };
 
     return {
       tables: tables,
-      sqlString:sqlString,
+      sqlString: sqlString,
       createSql: createSql,
       addNewTable: addNewTable
     }
